@@ -1,0 +1,55 @@
+{
+  "name": "robot-admin-env-manager",
+  "version": "1.0.1",
+  "description": "🚀 Robot Admin 环境配置管理工具 - 智能环境切换，避免脚本文件被误修改",
+  "main": "src/index.js",
+  "bin": {
+    "env-manager": "bin/env-manager.js",
+    "envmgr": "bin/env-manager.js"
+  },
+  "scripts": {
+    "test": "node test/simple-test.js",
+    "prepare": "chmod +x bin/env-manager.js",
+    "prepublishOnly": "npm test"
+  },
+  "keywords": [
+    "environment",
+    "config",
+    "env",
+    "dotenv",
+    "cli",
+    "robot-admin",
+    "build-tools"
+  ],
+  "author": {
+    "name": "Robot Admin Team",
+    "email": "team@robot-admin.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robot-admin/env-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/robot-admin/env-manager/issues"
+  },
+  "homepage": "https://github.com/robot-admin/env-manager#readme",
+  "files": [
+    "src/",
+    "bin/",
+    "templates/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {},
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
