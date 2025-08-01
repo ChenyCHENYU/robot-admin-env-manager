@@ -70,18 +70,17 @@ const style = {
   brand: (text) => `${colors.bold}${colors.primary}${text}${colors.reset}`,
   highlight: (text) => `${colors.bold}${colors.white}${text}${colors.reset}`,
   
-  // 分隔线样式
-  divider: (width = 60) => `${colors.darkGray}${'─'.repeat(width)}${colors.reset}`,
-  topDivider: (width = 60) => `${colors.primary}${'─'.repeat(width)}${colors.reset}`,
-  bottomDivider: (width = 60) => `${colors.primary}${'─'.repeat(width)}${colors.reset}`,
+  // 分隔线样式 - 优雅的灰白色
+  divider: (width = 60) => `${colors.lightGray}${'─'.repeat(width)}${colors.reset}`,
+  topDivider: (width = 60) => `${colors.lightGray}${'─'.repeat(width)}${colors.reset}`,
+  bottomDivider: (width = 60) => `${colors.lightGray}${'─'.repeat(width)}${colors.reset}`,
 }
 
 // 🎨 现代化Banner - 类似 Next.js CLI
 const createModernBanner = () => {
   const line1 = `${style.brand('▲')} ${style.title('Robot Admin')} ${style.muted('—')} ${style.subtitle('环境配置管理工具')}`
-  const line2 = `${style.muted('   优雅的环境切换解决方案')}`
   
-  return `${line1}\n${line2}`
+  return line1
 }
 
 // 🎨 现代化状态行 - 类似 Vercel CLI
@@ -102,7 +101,7 @@ const createStatusLine = (icon, text, status = 'info', detail = '') => {
 
 // 🎨 现代化成功卡片 - 类似现代UI
 const createSuccessCard = (envType, variableCount) => {
-  const header = `${style.success('✓')} ${style.highlight('环境切换成功')}`
+  const header = `${style.success('●')} ${style.highlight('环境切换')} ${style.success('成功')}`
   const env = `   ${style.muted('环境:')} ${style.primary(envType.toUpperCase())}`
   const vars = `   ${style.muted('变量:')} ${style.highlight(variableCount + ' 个')}`
   const status = `   ${style.muted('状态:')} ${style.success('已生效')}`
@@ -282,10 +281,10 @@ const switchEnvironment = async (envType, options = {}) => {
   const envContent = readFile(envSpecificFile)
   outputContent += `\n${createStatusLine(icons.success, '环境配置', 'success', '读取成功')}`
 
-  outputContent += `\n${createStatusLine(icons.gear, '合并配置', 'processing')}`
+  outputContent += `\n${createStatusLine(icons.gear, '合并配置', 'processing', '已完成')}`
   const mergedContent = mergeEnvContents(baseContent, envContent, envType)
   
-  outputContent += `\n${createStatusLine(icons.gear, '写入文件', 'processing')}`
+  outputContent += `\n${createStatusLine(icons.gear, '写入文件', 'processing', '已完成')}`
   writeFile(targetFile, mergedContent)
 
   const variableCount = (mergedContent.match(/^[^#\s].*=/gm) || []).length
