@@ -21,17 +21,26 @@
 
 ### 🎨 **精美的命令行界面**
 ```bash
-🚀 Robot Admin - 环境配置管理工具 ✨
-╭──────────────────────────────────────────╮
-│ 🎯 PRODUCTION 环境已激活                    │
-│ 🔑 环境变量: 12 个                         │
-╰──────────────────────────────────────────╯
-✨ 环境配置完成！现在可以开始开发了 💚
+────────────────────────────────────────────────────────────
+▲ Robot Admin — 环境配置管理工具
+   优雅的环境切换解决方案
+
+⚙ 开始处理 production 环境
+✓ 通用配置 读取成功
+✓ 环境配置 读取成功
+⚙ 合并配置
+⚙ 写入文件
+
+✓ 环境切换成功
+   环境: PRODUCTION
+   变量: 12 个
+   状态: 已生效
+────────────────────────────────────────────────────────────
 ```
 
 ### 🛡️ **安全可靠**
 - ✅ **零误操作** - 智能验证，防止配置错误
-- ✅ **自动备份** - 每次切换前自动备份当前配置
+- ✅ **完整输出块** - 所有操作信息统一展示，避免混乱
 - ✅ **权限检查** - 确保有足够权限进行文件操作
 - ✅ **格式验证** - 自动检查环境变量格式
 
@@ -42,7 +51,7 @@
 - ✅ **多平台支持** - Windows、macOS、Linux 通用
 
 ### 💡 **现代化设计**
-- ✅ **函数式编程** - 代码优雅，易于维护
+- ✅ **精致界面** - 现代化分隔线和颜色系统
 - ✅ **零依赖** - 只使用 Node.js 内置模块，启动飞快
 - ✅ **TypeScript 友好** - 完整的类型定义支持
 - ✅ **多运行时** - 支持 Node.js、Bun、Deno
@@ -65,6 +74,26 @@ npm install --save-dev @robot-admin/env-manager
 ```bash
 # 在你的项目根目录运行
 env-manager --init
+```
+
+执行后你会看到：
+```bash
+────────────────────────────────────────────────────────────
+▲ Robot Admin — 环境配置管理工具
+   优雅的环境切换解决方案
+
+⚙ 初始化项目
+✓ .env 创建成功
+✓ .env.development 创建成功
+✓ .env.test 创建成功
+✓ .env.staging 创建成功
+✓ .env.production 创建成功
+
+快速开始
+   env-manager dev     切换到开发环境
+   env-manager prod    切换到生产环境
+   env-manager --scan  扫描环境文件
+────────────────────────────────────────────────────────────
 ```
 
 这会创建以下文件结构：
@@ -123,6 +152,21 @@ env-manager test
 
 # 查看所有可用环境
 env-manager --scan
+```
+
+扫描环境文件的输出示例：
+```bash
+────────────────────────────────────────────────────────────
+▲ Robot Admin — 环境配置管理工具
+   优雅的环境切换解决方案
+
+环境文件
+   • .env (0.2KB)
+   • .env.development (0.3KB)
+   • .env.test (0.2KB)
+   • .env.staging (0.3KB)
+   • .env.production (0.4KB)
+────────────────────────────────────────────────────────────
 ```
 
 ## 💡 使用场景
@@ -339,6 +383,31 @@ API_URL=http://localhost:3000  # ❌ 这是开发环境特定的
 APP_NAME=MyApp  # ❌ 这应该在通用配置中
 ```
 
+## 🎨 界面设计特色
+
+### 🌈 **现代化颜色系统**
+- **主色调**: 现代蓝紫色系，专业且不失活力
+- **状态颜色**: 成功（绿）、警告（黄）、错误（红）、信息（蓝）
+- **完整分隔线**: 每个操作都有完整的视觉边界
+
+### 📋 **统一输出格式**
+所有操作都使用统一的输出块格式：
+```bash
+────────────────────────────────────────────────────────────
+[顶部分隔线 - 蓝色]
+
+品牌标识 + 操作内容
+
+[底部分隔线 - 蓝色]
+────────────────────────────────────────────────────────────
+```
+
+### 🎯 **清晰的信息层级**
+- **标题**: 品牌标识和工具名称
+- **副标题**: 简洁的功能说明
+- **状态行**: 实时操作进度
+- **结果卡片**: 最终操作结果
+
 ## 🛠️ 项目集成
 
 ### 📦 **在 package.json 中集成**
@@ -472,15 +541,6 @@ DATABASE_URL=__DATABASE_URL__
 API_SECRET=__API_SECRET__
 ```
 
-### 🔍 **自动检查敏感信息**
-env-manager 会自动掩码显示敏感信息：
-```bash
-🔑 关键环境变量
-  🔑 DATABASE_URL          = mon***********:27017/app
-  🔑 API_SECRET            = sk_***************abc123
-  🔑 JWT_SECRET            = eyJ***************xyz789
-```
-
 ## 🚨 常见问题
 
 <details>
@@ -496,6 +556,21 @@ env-manager 会自动掩码显示敏感信息：
 # 验证环境文件
 env-manager --scan
 cat .env
+```
+
+你应该看到类似这样的输出：
+```bash
+────────────────────────────────────────────────────────────
+▲ Robot Admin — 环境配置管理工具
+   优雅的环境切换解决方案
+
+环境文件
+   • .env (0.2KB)
+   • .env.development (0.3KB)
+   • .env.test (0.2KB)
+   • .env.staging (0.3KB)
+   • .env.production (0.4KB)
+────────────────────────────────────────────────────────────
 ```
 </details>
 
@@ -524,9 +599,6 @@ env-manager dev
 **A:** 当然可以！支持多种自定义方式：
 
 ```bash
-# 命令行方式（未来版本支持）
-env-manager dev --envs-dir=config/environments
-
 # 编程式方式
 const { switchEnv } = require('@robot-admin/env-manager')
 await switchEnv('dev', { envsDir: 'config/environments' })
@@ -534,31 +606,13 @@ await switchEnv('dev', { envsDir: 'config/environments' })
 </details>
 
 <details>
-<summary><strong>Q: 支持嵌套的环境变量吗？</strong></summary>
+<summary><strong>Q: 为什么要使用分隔线设计？</strong></summary>
 
-**A:** env-manager 本身不处理变量替换，但你可以结合其他工具：
-
-```bash
-# 使用 dotenv-expand
-npm install dotenv dotenv-expand
-
-# 在应用中
-require('dotenv-expand').expand(require('dotenv').config())
-```
-</details>
-
-<details>
-<summary><strong>Q: 如何备份和恢复环境配置？</strong></summary>
-
-**A:** env-manager 会自动创建备份：
-
-```bash
-# 查看备份文件
-ls -la .env.backup.*
-
-# 手动恢复
-cp .env.backup.2024-01-15T10:30:25 .env
-```
+**A:** 分隔线设计带来的好处：
+1. **视觉完整性**: 每个操作都有明确的开始和结束
+2. **避免混乱**: 在复杂的终端环境中，清晰区分不同工具的输出
+3. **现代化体验**: 类似于现代 CLI 工具的设计理念
+4. **易于阅读**: 结构化的信息展示，提高可读性
 </details>
 
 ## 🤝 贡献指南
@@ -611,6 +665,7 @@ git push origin feature/amazing-feature
 - ✅ 基础环境切换功能
 - ✅ 配置文件合并
 - ✅ 精美的命令行界面
+- ✅ 完整的输出块设计
 - ✅ 零依赖设计
 
 ### 🔮 **v2.x（计划中）**
@@ -619,11 +674,12 @@ git push origin feature/amazing-feature
 - 🌐 远程配置文件支持
 - 🔌 插件系统
 - 📊 使用统计和分析
+- 🎨 可配置的界面主题
 
 ### 🌟 **v3.x（远期规划）**
 - 🔐 配置文件加密
 - 🌍 多语言支持
-- 🎨 自定义主题
+- 🎨 自定义分隔线样式
 - 📱 Web 界面管理
 - ☁️ 云端配置同步
 
@@ -635,6 +691,7 @@ git push origin feature/amazing-feature
 - 🧪 测试覆盖率: 95%+
 - 🌍 支持平台: Windows, macOS, Linux
 - 🏗️ 支持运行时: Node.js 14+, Bun, Deno
+- 🎨 现代化CLI界面: 完整输出块设计
 
 ## 🙏 致谢
 
@@ -644,6 +701,7 @@ git push origin feature/amazing-feature
 - [dotenv](https://github.com/motdotla/dotenv) - 启发了环境变量管理的最佳实践
 - [chalk](https://github.com/chalk/chalk) - 命令行颜色输出的灵感来源
 - [commander](https://github.com/tj/commander.js) - 命令行解析的设计参考
+- [Vercel CLI](https://vercel.com/cli) - 现代化CLI界面设计的灵感来源
 
 ## 📄 许可证
 
