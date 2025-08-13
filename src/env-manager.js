@@ -2,51 +2,53 @@
 const fs = require('fs')
 const path = require('path')
 
-// 🎨 现代化颜色系统 (类似 Vercel CLI)
+// 🎨 现代化颜色系统 (更精致的色彩搭配)
 const colors = {
   reset: '\x1b[0m',
   bold: '\x1b[1m',
   dim: '\x1b[2m',
   
-  // 主色调 - 现代蓝紫色系
-  primary: '\x1b[38;2;79;172;254m',     // 现代蓝
-  secondary: '\x1b[38;2;168;85;247m',   // 现代紫  
-  accent: '\x1b[38;2;34;197;94m',       // 现代绿
-  warning: '\x1b[38;2;251;191;36m',     // 现代黄
-  error: '\x1b[38;2;239;68;68m',        // 现代红
+  // 主色调 - 现代蓝紫色系 (更饱和)
+  primary: '\x1b[38;2;56;139;253m',     // 现代蓝
+  secondary: '\x1b[38;2;139;92;246m',   // 现代紫  
+  accent: '\x1b[38;2;16;185;129m',      // 现代绿
+  warning: '\x1b[38;2;245;158;11m',     // 现代黄
+  error: '\x1b[38;2;244;63;94m',        // 现代红
   
-  // 中性色
-  white: '\x1b[38;2;255;255;255m',
-  gray: '\x1b[38;2;156;163;175m',
-  darkGray: '\x1b[38;2;75;85;99m',
-  lightGray: '\x1b[38;2;229;231;235m',
+  // 中性色 (更细腻的层次)
+  white: '\x1b[38;2;248;250;252m',
+  gray: '\x1b[38;2;148;163;184m',
+  darkGray: '\x1b[38;2;71;85;105m',
+  lightGray: '\x1b[38;2;203;213;225m',
+  muted: '\x1b[38;2;100;116;139m',
   
   // 背景色
-  bgDark: '\x1b[48;2;17;24;39m',
+  bgDark: '\x1b[48;2;15;23;42m',
   bgLight: '\x1b[48;2;248;250;252m',
 }
 
-// 🎯 现代化图标 (简洁风格)
+// 🎯 现代化图标 (精美的 Unicode 符号)
 const icons = {
-  // 状态图标
-  success: '✓',
-  error: '✕', 
-  warning: '⚠',
-  info: 'ℹ',
+  // 状态图标 - 使用不同的精美符号
+  success: '✓',     // 优雅的对勾
+  error: '✕',       // 简洁的叉号
+  warning: '⚠',     // 警告三角
+  info: '◉',        // 实心圆点
   
   // 功能图标
-  rocket: '▲',      // 类似 Vercel
+  rocket: '▲',      
   folder: '📁',
   file: '📄',
-  gear: '⚙',
-  arrow: '→',
+  gear: '⚙',        // 更清晰的齿轮
+  arrow: '→',       // 简洁箭头
   dot: '•',
+  process: '◐',     // 处理中的半圆
   
   // 装饰图标
   sparkle: '✨',
-  heart: '♥',
   diamond: '◆',
   star: '★',
+  brand: '◆',       // 品牌标识
 }
 
 const ENV_MAP = {
@@ -55,95 +57,103 @@ const ENV_MAP = {
   production: '.env.production'
 }
 
-// 🎨 现代化样式工具
+// 🎨 现代化样式工具 (更精致的排版)
 const style = {
   // 文字样式
   title: (text) => `${colors.bold}${colors.white}${text}${colors.reset}`,
-  subtitle: (text) => `${colors.gray}${text}${colors.reset}`,
+  subtitle: (text) => `${colors.muted}${text}${colors.reset}`,
   primary: (text) => `${colors.primary}${text}${colors.reset}`,
   success: (text) => `${colors.accent}${text}${colors.reset}`,
   warning: (text) => `${colors.warning}${text}${colors.reset}`,
   error: (text) => `${colors.error}${text}${colors.reset}`,
-  muted: (text) => `${colors.darkGray}${text}${colors.reset}`,
+  muted: (text) => `${colors.muted}${text}${colors.reset}`,
   
   // 组合样式
   brand: (text) => `${colors.bold}${colors.primary}${text}${colors.reset}`,
   highlight: (text) => `${colors.bold}${colors.white}${text}${colors.reset}`,
   
-  // 分隔线样式 - 优雅的灰白色
+  // 分隔线样式 - 更优雅的渐变效果
   divider: (width = 60) => `${colors.lightGray}${'─'.repeat(width)}${colors.reset}`,
   topDivider: (width = 60) => `${colors.lightGray}${'─'.repeat(width)}${colors.reset}`,
   bottomDivider: (width = 60) => `${colors.lightGray}${'─'.repeat(width)}${colors.reset}`,
 }
 
-// 🎨 现代化Banner - 类似 Next.js CLI
+// 🎨 现代化Banner - 精美的品牌展示
 const createModernBanner = () => {
-  const line1 = `${style.brand('▲')} ${style.title('Robot Admin')} ${style.muted('—')} ${style.subtitle('环境配置管理工具')}`
+  // 获取真实版本号
+  let version = 'v1.0.0'
+  try {
+    const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'))
+    version = `v${packageJson.version}`
+  } catch {
+    // 如果读取失败，使用默认版本
+  }
   
-  return line1
+  return `${style.brand('◆')} ${style.title('Robot Admin')} ${style.muted('— 环境配置管理工具')} ${style.primary(version)}`
 }
 
-// 🎨 现代化状态行 - 类似 Vercel CLI
+// 🎨 现代化状态行 - 精美的状态指示 (优化对齐)
 const createStatusLine = (icon, text, status = 'info', detail = '') => {
   const statusColors = {
     success: colors.accent,
     error: colors.error,
     warning: colors.warning,
     info: colors.primary,
-    processing: colors.primary
+    processing: colors.secondary
   }
   
   const color = statusColors[status]
-  const detailText = detail ? ` ${style.muted(detail)}` : ''
+  // 优化对齐：统一使用固定宽度
+  const paddedText = text.padEnd(8, ' ')  // 确保文本对齐
+  const detailText = detail ? ` ${style.muted(`→ ${detail}`)}` : ''
   
-  return `${color}${icon}${colors.reset} ${colors.white}${text}${colors.reset}${detailText}`
+  return `   ${color}${icon}${colors.reset} ${colors.white}${paddedText}${colors.reset}${detailText}`
 }
 
-// 🎨 现代化成功卡片 - 类似现代UI
+// 🎨 现代化成功卡片 - 精美的单行展示
 const createSuccessCard = (envType, variableCount) => {
-  const header = `${style.success('●')} ${style.highlight('环境切换')} ${style.success('成功')}`
-  const env = `   ${style.muted('环境:')} ${style.primary(envType.toUpperCase())}`
-  const vars = `   ${style.muted('变量:')} ${style.highlight(variableCount + ' 个')}`
-  const status = `   ${style.muted('状态:')} ${style.success('已生效')}`
+  const envDisplay = `${style.primary(envType.toUpperCase())}`
+  const countDisplay = `${style.highlight(variableCount + ' 个变量')}`
+  const statusDisplay = `${style.success('已生效')}`
   
-  return `${header}\n${env}\n${vars}\n${status}`
+  return `${style.success('✓')} ${style.highlight('环境切换成功')} ${style.muted('→')} ${envDisplay} ${style.muted('•')} ${countDisplay} ${style.muted('•')} ${statusDisplay}`
 }
 
-// 🎨 现代化文件列表 - 类似 VS Code Terminal
+// 🎨 现代化文件列表 - 精美的文件展示 (优化对齐)
 const createFileList = (files) => {
-  const header = `${style.highlight('环境文件')}`
+  const header = `${style.highlight('发现环境文件:')}`
   const items = files.map(file => {
-    const filePath = file.path
-    const stats = fs.statSync(filePath)
+    const stats = fs.statSync(file.path)
     const sizeKB = (stats.size / 1024).toFixed(1)
-    return `   ${style.primary('•')} ${style.highlight(file.name)} ${style.muted(`(${sizeKB}KB)`)}`
+    const paddedName = file.name.padEnd(20, ' ')  // 文件名对齐
+    return `   ${style.primary('◉')} ${style.highlight(paddedName)} ${style.muted(`→ ${sizeKB}KB`)}`
   })
   
   return `${header}\n${items.join('\n')}`
 }
 
-// 🎨 现代化使用说明 - 类似 CLI 帮助文档
+// 🎨 现代化使用说明 - 更简洁的帮助 (优化对齐)
 const createUsageGuide = () => {
-  const header = `${style.highlight('快速开始')}`
+  const header = `${style.highlight('快速使用:')}`
   const commands = [
-    `   ${style.primary('env-manager dev')}     ${style.muted('切换到开发环境')}`,
-    `   ${style.primary('env-manager prod')}    ${style.muted('切换到生产环境')}`,
-    `   ${style.primary('env-manager --scan')}  ${style.muted('扫描环境文件')}`
+    `   ${style.primary('env-manager dev')}       ${style.muted('→ 开发环境')}`,
+    `   ${style.primary('env-manager prod')}      ${style.muted('→ 生产环境')}`,
+    `   ${style.primary('env-manager --scan')}    ${style.muted('→ 扫描文件')}`
   ]
   
   return `${header}\n${commands.join('\n')}`
 }
 
-// 🎨 完整输出块包装器
+// 🎨 精致的输出块包装器 - 更优雅的边框
 const createOutputBlock = (content, title = '') => {
-  const dividerWidth = 60
+  const dividerWidth = 56
   const topLine = style.topDivider(dividerWidth)
   const bottomLine = style.bottomDivider(dividerWidth)
   
   let output = `\n${topLine}\n`
   
   if (title) {
-    output += `${title}\n${style.divider(dividerWidth)}\n`
+    output += `${title}\n\n`
   }
   
   output += `${content}\n${bottomLine}\n`
@@ -151,13 +161,13 @@ const createOutputBlock = (content, title = '') => {
   return output
 }
 
-// 📁 文件操作工具
+// 📁 文件操作工具 (保持不变)
 const fileExists = (filePath) => fs.existsSync(filePath)
 const readFile = (filePath) => fs.readFileSync(filePath, 'utf8')
 const writeFile = (filePath, content) => fs.writeFileSync(filePath, content, 'utf8')
 const ensureDir = (dirPath) => !fs.existsSync(dirPath) && fs.mkdirSync(dirPath, { recursive: true })
 
-// 🔧 核心功能函数
+// 🔧 核心功能函数 (保持不变)
 const validateEnvType = (envType) => {
   const envFileName = ENV_MAP[envType]
   if (!envFileName) {
@@ -209,7 +219,7 @@ const mergeEnvContents = (baseContent = '', envContent = '', envType = 'unknown'
   return lines.join('\n')
 }
 
-// 🎯 主要功能类
+// 🎯 主要功能类 (保持不变)
 class EnvManager {
   constructor(options = {}) {
     this.config = {
@@ -233,7 +243,7 @@ class EnvManager {
   }
 }
 
-// 🚀 核心功能实现
+// 🚀 核心功能实现 (只调整输出样式)
 
 const switchEnvironment = async (envType, options = {}) => {
   const config = { envsDir: 'envs', targetFile: '.env', silent: false, ...options }
@@ -245,7 +255,7 @@ const switchEnvironment = async (envType, options = {}) => {
   const envSpecificFile = path.join(envsDir, envFileName)
   const targetFile = config.targetFile
 
-  // 构建输出内容
+  // 构建输出内容 - 更精致的布局
   let outputContent = createModernBanner()
 
   // 检查文件
@@ -269,8 +279,8 @@ const switchEnvironment = async (envType, options = {}) => {
     throw new Error(error)
   }
 
-  // 现代化处理过程
-  outputContent += `\n\n${createStatusLine(icons.gear, '开始处理', 'processing', `${envType} 环境`)}`
+  // 精致的处理过程显示
+  outputContent += `\n\n${createStatusLine(icons.process, '开始处理', 'processing', `${envType} 环境`)}`
 
   let baseContent = ''
   if (fileExists(baseEnvFile)) {
@@ -289,6 +299,7 @@ const switchEnvironment = async (envType, options = {}) => {
 
   const variableCount = (mergedContent.match(/^[^#\s].*=/gm) || []).length
   
+  // 精致的单行成功展示
   outputContent += `\n\n${createSuccessCard(envType, variableCount)}`
 
   if (!config.silent) {
@@ -379,7 +390,7 @@ const initProject = (options = {}) => {
   return { envsDir: config.envsDir, filesCreated: createdFiles }
 }
 
-// 导出
+// 导出 (保持不变)
 module.exports = EnvManager
 module.exports.switchEnvironment = switchEnvironment
 module.exports.scanEnvironments = scanEnvironments  
