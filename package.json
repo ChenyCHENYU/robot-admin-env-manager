@@ -1,6 +1,6 @@
 {
   "name": "robot-admin-env-manager",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "🚀 Robot Admin 环境配置管理工具 - 智能环境切换，避免脚本文件被误修改",
   "main": "src/index.js",
   "bin": {
